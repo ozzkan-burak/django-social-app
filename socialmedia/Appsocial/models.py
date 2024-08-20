@@ -4,8 +4,9 @@ from django.contrib.auth.models import User
 class Post(models.Model):
   user = models.ForeignKey(User, on_delete=models.CASCADE)
   image = models.ImageField(upload_to="Post-Image")
-  description = models.TesxtField()
-  likes = models.ManyToManyField(User)
+  description = models.TextField()
+  likes = models.ManyToManyField(User, related_name="Likeds")
+  post_saves = models.ManyToManyField(User, related_name="Saveds")
   date = models.DateTimeField(auto_now_add=True)
   
 class Commment(models.Model):
@@ -20,9 +21,9 @@ class Profile(models.Model):
   bio = models.TextField()
 
 class Follow(models.Model):
-  profile = models.ForeignKey(Profile, releated_name="profile" on_delete=models.CASCADE)
-  followed = models.ForeignKey(Profile, releated_name="followed" on_delete=models.CASCADE)
+  profile = models.ForeignKey(Profile, related_name="follower_profile", on_delete=models.CASCADE)
+  followed = models.ForeignKey(Profile, related_name="followed", on_delete=models.CASCADE)
   
 class Follower(models.Model):
-  profile = models.ForeignKey(Profile, releated_name="profile" on_delete=models.CASCADE)
-  following = models.ForeignKey(Profile, releated_name="following" on_delete=models.CASCADE)
+  profile = models.ForeignKey(Profile, related_name="follow_profile", on_delete=models.CASCADE)
+  following = models.ForeignKey(Profile, related_name="following", on_delete=models.CASCADE)
