@@ -1,2 +1,61 @@
-{% extends "base.html" %} {% load static %} {% block content %} {% endblock
-content %}
+{% extends "base.html" %} {% load static %} {% block content %} 
+
+
+<div class="container d-flex justify-content-center alig-items.center">
+  <div class="row justify-content-center">
+    <h2>Kayıt Ol</h2>
+    <form method="post" action="">
+      {% csrf_token %}
+      <div class="w.100">
+        <div class="form-floating mb-3">
+          <input
+            type="email"
+            class="form-control"
+            id="floatingInput"
+            placeholder="name@example.com"
+          />
+          <label for="floatingInput">Email address</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input
+            type="emtextail"
+            class="form-control"
+            id="floatingInput"
+            placeholder="Kullanıcı Adınız"
+          />
+          <label for="floatingInput">Kullanıcı Adı</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input
+            type="emtextail"
+            class="form-control"
+            id="floatingInput"
+            placeholder="Adınız"
+          />
+          <label for="floatingInput">Ad</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input
+            type="emtextail"
+            class="form-control"
+            id="floatingInput"
+            placeholder="Syadınız"
+          />
+          <label for="floatingInput">Soyad</label>
+        </div>
+        <div class="form-floating">
+          <input
+            type="password"
+            class="form-control"
+            id="floatingPassword"
+            placeholder="Password"
+          />
+          <label for="floatingPassword">Password</label>
+        </div>
+      </div>
+      <button type="submit" class="d-block ms-auto mt-3 btn btn-primary">Kayıt Ol</button>
+    </form>
+  </h2>
+</div>
+
+{% endblock content %}
