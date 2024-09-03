@@ -1,28 +1,32 @@
 {% extends "base.html" %} {% load static %} {% block content %}
 
-<div class="container">
-  <div class="row">
+<div class="container d-flex justify-content-center alig-items.center">
+  <div class="row justify-content-center">
     <h2>Giriş Yap</h2>
-    <div class="w.100">
-      <div class="form-floating mb-3">
-        <input
-          type="email"
-          class="form-control"
-          id="floatingInput"
-          placeholder="name@example.com"
-        />
-        <label for="floatingInput">Email address</label>
+    <form method="post" action="">
+      {% csrf_token %}
+      <div class="w.100">
+        <div class="form-floating mb-3">
+          <input
+            type="email"
+            class="form-control"
+            id="floatingInput"
+            placeholder="name@example.com"
+          />
+          <label for="floatingInput">Email address</label>
+        </div>
+        <div class="form-floating">
+          <input
+            type="password"
+            class="form-control"
+            id="floatingPassword"
+            placeholder="Password"
+          />
+          <label for="floatingPassword">Password</label>
+        </div>
       </div>
-      <div class="form-floating">
-        <input
-          type="password"
-          class="form-control"
-          id="floatingPassword"
-          placeholder="Password"
-        />
-        <label for="floatingPassword">Password</label>
-      </div>
-    </div>
+      <button type="submit" class="d-block ms-auto mt-3 btn btn-primary">Giriş Yap</button>
+    </form>
   </h2>
 </div>
 {% endblock content %}
