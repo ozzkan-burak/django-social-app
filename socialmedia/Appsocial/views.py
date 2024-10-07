@@ -1,10 +1,29 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib import messages 
 from django.contrib.auth.models import User
+from django.contrib.auth import login, logout
 
 def index(request):
   return render(request, "index.html")
 
 def Login(request):
+  
+  if request.method == "POST":
+    email = request.POST.get("email")
+    password = request.POST.get("password")
+    
+    if User.objects.filter(email=email). exist():
+      user= User.object.get(email=email)
+      if user.check_password(password):
+        if user is not None:
+          login(request, user)
+          return redirect("index")
+        else:
+          messages.warning(request, "Kullanıcı bulunamadı.")
+  else:
+    messages.warning(request, "eposta adı yada şifre hatalı")
+      
+  
   return render(request, "login.html")
 
 def Register(request):
@@ -22,11 +41,17 @@ def Register(request):
           first_name=first_name,
           last_name=last_name,
           email=email,
-          user=user,
+          user_name=user_name,
           password=password
         )
         
         user.save()
+        login(request, user)
+        return redirect(f"profil/{user.user_name}")
+      else:
+        messages.warning(request, "Bu E-posta adresi kullanılmaktadır.")
+    else:    
+      messages.warning(request, "Bu kullanıcı adı kullanılmaktadır.")
     
   return render(request, "register.html")
 
