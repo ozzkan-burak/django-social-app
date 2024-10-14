@@ -50,12 +50,35 @@
         />
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
+      {% if request.user.is_authenticated %}
+      <div class="dropdown">
+        <button
+          class="btn btn-secondary dropdown-toggle"
+          type="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          {{ request.user.username }}
+        </button>
+        <ul class="dropdown-menu">
+          <li>
+            <a
+              class="dropdown-item"
+              href="{% url profile, request.user.username %}"
+              >Profil</a
+            >
+          </li>
+          <li><a class="dropdown-item" href="#">Çıkış Yap</a></li>
+        </ul>
+      </div>
+      {% else %}
       <a href="{% url 'login'%}" class="link-opacity-50-hover m-3 mb-0 mt-0"
         >Giriş Yap</a
       >
       <a href="{% url 'register' %}" class="link-opacity-50-hover m-3 mb-0 mt-0"
         >Kayıt Ol</a
       >
+      {% endif %}
     </div>
   </div>
 </nav>
