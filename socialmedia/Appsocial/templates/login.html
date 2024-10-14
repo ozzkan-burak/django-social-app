@@ -1,6 +1,6 @@
 {% extends "base.html" %} {% load static %} {% block content %}
 
-<div class="container d-flex justify-content-center alig-items.center">
+<div class="container d-flex justify-content-center align-items-center h-100">
   <div class="row justify-content-center">
     <h2>Giriş Yap</h2>
     <form method="post" action="">
@@ -25,8 +25,10 @@
           <label for="floatingPassword">Password</label>
         </div>
       </div>
-      <button type="submit" class="d-block ms-auto mt-3 btn btn-primary">Giriş Yap</button>
+      <button type="submit" class="d-block ms-auto mt-3 btn btn-primary">
+        Giriş Yap
+      </button>
     </form>
-  </h2>
+  </div>
 </div>
 {% endblock content %}
