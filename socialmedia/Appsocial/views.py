@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
+from .models import *
 
 @login_required(login_url='/login')
 def index(request):
@@ -14,14 +15,16 @@ def Login(request):
     email = request.POST.get("email")
     password = request.POST.get("password")
     
-    if User.objects.filter(email=email). exist():
-      user= User.object.get(email=email)
+    if User.objects.filter(email=email).exists():
+      user= User.objects.get(email=email)
       if user.check_password(password):
         if user is not None:
           login(request, user)
           return redirect("index")
         else:
           messages.warning(request, "Kullanıcı bulunamadı.")
+      else:
+        messages.warning(request, "Kullanıcı bulunamadı.")
   else:
     messages.warning(request, "eposta adı yada şifre hatalı")
       
@@ -43,11 +46,10 @@ def Register(request):
 
     if not User.objects.filter(username=username).exists():
       if not User.objects.filter(email=email).exists():
-        user = User.objects.create_user(first_name=first_name,last_name=last_name,username=username,email=email,password=password)
-        # user = User.objects.create_user(first_name=first_name,last_name=last_name,email=email,username=username,password=password)
+        user = User.objects.create_user(first_name=first_name,last_name=last_name, username=username,email=email,password=password)
         user.save()
         login(request, user)
-        return redirect(f"profil/{user.user_name}")
+        return redirect(f"/profile/{user.username}")
       else:
         messages.warning(request, "Bu E-posta adresi kullanılmaktadır.")
     else:    
@@ -56,5 +58,10 @@ def Register(request):
   return render(request, "register.html")
 
 @login_required(login_url="/login")
-def Profile(request, username):
-  return render(request, "profile.html")
+def profile(request, username):
+  profile = Profile.objects.get(user__username=username)
+  
+  context={
+    "profile":profile
+  }
+  return render(request, "profile.html", context)

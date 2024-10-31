@@ -10,7 +10,7 @@ urlpatterns = [
     path("", index, name="index"),
     path("login/", Login, name="login"),
     path("register/", Register, name="register"),
-    path("profile/<slug:username>", Profile, name="profile"),
+    path("profile/<slug:username>", profile, name="profile"),
     path("logout/", Logout, name="logout"),
     
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
