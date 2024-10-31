@@ -3,7 +3,7 @@
 <div class="container d-flex justify-content-center align-items-center h-100">
   <div class="row justify-content-center">
     <h2>Giriş Yap</h2>
-    <form method="post" action="">
+    <form method="post">
       {% csrf_token %}
       <div class="w.100">
         <div class="form-floating mb-3">
@@ -11,7 +11,7 @@
             type="email"
             class="form-control"
             id="floatingInput"
-            placeholder="name@example.com"
+            name="email"
           />
           <label for="floatingInput">Email address</label>
         </div>
@@ -21,6 +21,7 @@
             class="form-control"
             id="floatingPassword"
             placeholder="Password"
+            name="password"
           />
           <label for="floatingPassword">Password</label>
         </div>
