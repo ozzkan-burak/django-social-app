@@ -35,22 +35,16 @@ def Logout(request):
 def Register(request):
   
   if request.method == "POST":
-    first_name=request.POST.get("first_name")
-    last_name=request.POST.get("last_name")
-    email=request.POST.get("email")
-    user_name=request.POST.get("user_name")
-    password=request.POST.get("password")
-    
-    if not User.object.filter(user_name=user_name).exist():
-      if not User.object.filter(email=email).exist():
-        user = User.objects.create_user(
-          first_name=first_name,
-          last_name=last_name,
-          email=email,
-          user_name=user_name,
-          password=password
-        )
-        
+    first_name = request.POST.get("first_name")
+    last_name = request.POST.get("last_name")
+    email = request.POST.get("email")
+    username = request.POST.get("username")
+    password = request.POST.get("password")
+
+    if not User.objects.filter(username=username).exists():
+      if not User.objects.filter(email=email).exists():
+        user = User.objects.create_user(first_name=first_name,last_name=last_name,username=username,email=email,password=password)
+        # user = User.objects.create_user(first_name=first_name,last_name=last_name,email=email,username=username,password=password)
         user.save()
         login(request, user)
         return redirect(f"profil/{user.user_name}")
@@ -62,5 +56,5 @@ def Register(request):
   return render(request, "register.html")
 
 @login_required(login_url="/login")
-def Profile(request):
+def Profile(request, username):
   return render(request, "profile.html")
