@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 from django.contrib import messages 
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout
@@ -46,7 +47,7 @@ def Register(request):
 
     if not User.objects.filter(username=username).exists():
       if not User.objects.filter(email=email).exists():
-        user = User.objects.create_user(first_name=first_name,last_name=last_name, username=username,email=email,password=password)
+        user = User.objects.create_user(first_name=first_name,last_name=last_name,username=username,email=email,password=password)
         user.save()
         login(request, user)
         return redirect(f"/profile/{user.username}")
@@ -59,8 +60,12 @@ def Register(request):
 
 @login_required(login_url="/login")
 def profile(request, username):
-  profile = Profile.objects.get(user__username=username)
-  
+  try:
+    profile = Profile.objects.get(user__username=username)
+  except Profile.DoesNotExist:
+    # Profil bulunamadıysa yapılacak işlemler
+    return HttpResponse("Profil bulunamadı")
+    
   context={
     "profile":profile
   }
